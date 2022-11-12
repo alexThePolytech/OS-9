@@ -1,4 +1,0 @@
-C:\Users\microsoft\source\repos\C++ window\OS_lab7c\Debug\OS_lab7c.vcxproj.AssemblyReference.cache
-C:\Users\microsoft\source\repos\C++ window\OS_lab7c\Debug\OS_lab7c.vcxproj.SuggestedBindingRedirects.cache
-C:\Users\microsoft\source\repos\C++ window\OS_lab7c\Debug\OSlab7c.MyForm7c.resources
-C:\Users\microsoft\source\repos\C++ window\OS_lab7c\Debug\OS_lab7c.vcxproj.GenerateResource.cache
