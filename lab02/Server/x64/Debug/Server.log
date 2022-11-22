@@ -1,0 +1,6 @@
+﻿  Server.cpp
+C:\Users\Вероніка\source\repos\lab09\lab02\Server\Server.cpp(41,31): warning C4081: expected 'newline'; found ';'
+C:\Users\Вероніка\source\repos\lab09\lab02\Server\Server.cpp(216,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Вероніка\source\repos\lab09\lab02\Server\Server.cpp(238,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Вероніка\source\repos\lab09\lab02\Server\Server.cpp(259,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Server.vcxproj -> C:\Users\Вероніка\source\repos\lab09\lab02\x64\Debug\Server.exe

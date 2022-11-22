@@ -1,0 +1,40 @@
+C:\Users\HP_ProBook\source\repos\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+C:\Users\HP_ProBook\source\repos\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\HP_ProBook\source\repos\lab02\lab02\x64\Debug\lab02.MyForm.resources
+C:\Users\HP_ProBook\source\repos\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+C:\Users\HP_ProBook\source\repos\OOP_lab05\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+C:\Users\HP_ProBook\source\repos\OOP_lab05\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\HP_ProBook\source\repos\OOP_lab05\lab02\lab02\x64\Debug\lab02.MyForm.resources
+C:\Users\HP_ProBook\source\repos\OOP_lab05\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\labs_3-5_OOP\lab05\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\labs_3-5_OOP\lab05\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\labs_3-5_OOP\lab05\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\labs_3-5_OOP\lab05\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab06_new\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab06_new\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab06_new\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab06_new\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab07\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab07\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab07\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab07\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab09\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab10\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab10\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab10\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab10\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab11\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab11\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab11\lab02\lab02\x64\Debug\lab02.MyForm.resources
+D:\Дані з попередньої OS\Диск D\desctop files\studying\2 сем\labs_OOP\lab11\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+C:\Users\HP\Desktop\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+C:\Users\HP\Desktop\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\HP\Desktop\lab09\lab02\lab02\x64\Debug\lab02.MyForm.resources
+C:\Users\HP\Desktop\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
+C:\Users\Вероніка\source\repos\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.AssemblyReference.cache
+C:\Users\Вероніка\source\repos\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\Вероніка\source\repos\lab09\lab02\lab02\x64\Debug\lab02.MyForm.resources
+C:\Users\Вероніка\source\repos\lab09\lab02\lab02\x64\Debug\lab02.vcxproj.GenerateResource.cache
