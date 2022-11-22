@@ -10,9 +10,19 @@
 #include <inttypes.h>
 #include <thread>
 #include <Windows.h>
-
+#include <ws2tcpip.h>
 #pragma comment(lib, "WS2_32.Lib")
+
 #define PACKET_BUFF_SIZE 10
+
+std::string ipAddress = "127.0.0.1";  //ipAddress of the server
+int port = 1111;  //listening port # on the server
+//Fill in a hint structure
+struct sockaddr_in hint
+{
+	hint.sin_family = AF_INET,
+		hint.sin_port = htons(port),
+};
 
 namespace lab02 {
 
@@ -35,7 +45,6 @@ namespace lab02 {
 
 
 	public:
-		SOCKET my_sock;
 		bool wf = false; //прогноз погоди
 		bool sp = false; //курс акцій
 		bool er = false; // курс валют
@@ -46,32 +55,33 @@ namespace lab02 {
 		MyForm(void)
 		{
 			InitializeComponent();
-			int connect_port = 1111;
-			const char* server_address = "127.0.0.1";
-			char packet_buff[PACKET_BUFF_SIZE];
+			/*	int connect_port = 1111;
+				const char* server_address = "127.0.0.1";
+				char packet_buff[PACKET_BUFF_SIZE];
 
-			// Buffer for WSA and other metadata
-			char buff[1024];
-			// Sockets library initialisation
-			WSAStartup(0x202, reinterpret_cast<WSADATA*> (&buff[0]));
+				// Buffer for WSA and other metadata
+				char buff[1024];
+				// Sockets library initialisation
+				WSAStartup(0x202, reinterpret_cast<WSADATA*> (&buff[0]));
 
-			// Creating socket
-			my_sock = socket(AF_INET, SOCK_STREAM, 0);
+				// Creating socket
+				my_sock = socket(AF_INET, SOCK_STREAM, 0);
 
-			// Creating connection
-			sockaddr_in dest_addr;
-			dest_addr.sin_family = AF_INET;
-			dest_addr.sin_port = htons(connect_port);
+				// Creating connection
+				sockaddr_in dest_addr;
+				dest_addr.sin_family = AF_INET;
+				dest_addr.sin_port = htons(connect_port);
 
-			// Converting IP from symbols to networking format
-			if (inet_addr(server_address) != INADDR_NONE)
-				dest_addr.sin_addr.s_addr = inet_addr(server_address);
+				// Converting IP from symbols to networking format
+				if (inet_addr(server_address) != INADDR_NONE)
+					dest_addr.sin_addr.s_addr = inet_addr(server_address);
 
-			// Trying to connect the server
-			connect(my_sock,
-				reinterpret_cast<sockaddr*> (&dest_addr),
-				sizeof(dest_addr));
-			CheckForIllegalCrossThreadCalls = false;
+				// Trying to connect the server
+				connect(my_sock,
+					reinterpret_cast<sockaddr*> (&dest_addr),
+					sizeof(dest_addr));
+				CheckForIllegalCrossThreadCalls = false;
+				*/
 		}
 
 
@@ -182,11 +192,11 @@ namespace lab02 {
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label2->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->label2->Location = System::Drawing::Point(123, 49);
+			this->label2->Location = System::Drawing::Point(124, 49);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(707, 23);
+			this->label2->Size = System::Drawing::Size(718, 23);
 			this->label2->TabIndex = 5;
-			this->label2->Text = L"Тут ти можеш підписатися на один з серсівіс і отримувати дані щодкілька секунд";
+			this->label2->Text = L"Тут ти можеш підписатися на один з сервісів і отримувати дані щодекілька секунд";
 			// 
 			// tb_sp
 			// 
@@ -297,112 +307,167 @@ namespace lab02 {
 			this->PerformLayout();
 
 		}
-		
+
 
 #pragma endregion
-		public: void obtainingData() {
-
-			while (true) {
-				char* buffer = new char[1000];
-				recv(my_sock, buffer, 1000, 0);
-				char version = buffer[0];
-				std::string str = buffer;
-				str.erase(0, 1);
-				if (version == '0') {
-					tb_wf->Text = gcnew String(str.c_str());
-				}
-				else if (version == '1') {
-					tb_sp->Text = gcnew String(str.c_str());
-				}
-				else if (version == '2') {
-					tb_er->Text = gcnew String(str.c_str());
-				}
-				memset(buffer, '\0', 1000);
-			}
+	public:
+		int showError(int result) {
+			if (result != 0)
+				System::Windows::Forms::MessageBox::Show("The error occured in starting winsock");
+			else
+				System::Windows::Forms::MessageBox::Show("WinSock created");
+			return 0;
 		}
-        void Listening() {
-			 Thread^ MyThread = nullptr;
-			 ThreadStart^ ThreadMethod = gcnew ThreadStart(this, &MyForm::obtainingData);
-			 MyThread = gcnew Thread(ThreadMethod);
-			 MyThread->Start();
-	    }
 
-private: System::Void btn_wf_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (!isListening) {
-		Listening();
-		isListening = true;
+	public:	int invalidSocket(SOCKET sock) {
+		if (sock == INVALID_SOCKET) {
+			System::Windows::Forms::MessageBox::Show("The socket is invalid");
+			WSACleanup();
+		}
+		return 0;
 	}
-	if (wf) {
-		btn_wf->Text = "Subscribe";
-		tb_wf->Text = "You dont subscribe yet.";
-		char* strin2 = new char[2];
-		strin2 = "00";
-		send(my_sock, strin2, 2, 0);
-		wf = false;
-	}
-	else {
-		btn_wf->Text = "Unsubscribe";
-		tb_wf->Text = "";
-		char* strin2 = new char[2];
-		strin2 = "01";
-		send(my_sock, strin2, 2, 0);
-		wf = true;
+	public:
+		int connectionError(int result, SOCKET sock) {
+			if (result != SOCKET_ERROR)
+				System::Windows::Forms::MessageBox::Show("The connection is not set");
+			else
+				System::Windows::Forms::MessageBox::Show("Connection is set");
+			closesocket(sock);
+			WSACleanup();
+			return 0;
+		}
+
+
+
+		//initialize WinSock
+		WSAData* data = new WSAData;
+		WORD ver = MAKEWORD(2, 2);
+		int wsResult = WSAStartup(ver, data);
+		int ifErrorExist = showError(wsResult);
+
+		//Create socket
+		SOCKET sock = socket(AF_INET6, SOCK_STREAM, 0);
+		int ifSocketIsInvalid = invalidSocket(sock);
+
+		//fill in a hint structure 
+		//filled in the header of the file
+		int res = inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
+		//connect to the server
+		int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
+		int ifConnected = connectionError(connResult, sock);
+
+
+		//do-while loop to send and recieve data
+
+	public: void obtainingData() {
+
+		while (true) {
+			char* buffer = new char[4096];
+			ZeroMemory(buffer, 4096);
+			recv(sock, buffer, 1000, 0);
+			char version = buffer[0];
+			std::string str = buffer;
+			str.erase(0, 1);
+			if (version == 'w') {
+				tb_wf->Text = gcnew String(str.c_str());
+			}
+			else if (version == 'a') {
+				tb_sp->Text = gcnew String(str.c_str());
+			}
+			else if (version == 'b') {
+				tb_er->Text = gcnew String(str.c_str());
+			}
+			memset(buffer, '\0', 1000);
+		}
+		//closesocket(sock);
 	}
 
-}
-private: System::Void btn_sp_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (!isListening) {
-		Listening();
-		isListening = true;
-	}
-	if (sp) {
-		btn_sp->Text = "Subscribe";
-		tb_sp->Text = "You dont subscribe yet.";
-		char* strin2 = new char[2];
-		strin2 = "10";
-		send(my_sock, strin2, 2, 0);
-		sp = false;
-	}
-	else {
-		btn_sp->Text = "Unsubscribe";
-		tb_sp->Text = "";
-		char* strin2 = new char[2];
-		strin2 = "11";
-		send(my_sock, strin2, 2, 0);
-		sp = true;
+		  void Listening() {
+			  Thread^ MyThread = nullptr;
+			  ThreadStart^ ThreadMethod = gcnew ThreadStart(this, &MyForm::obtainingData);
+			  //ThreadStart^ ThreadMethod = gcnew ThreadStart(this, NULL);
+			  MyThread = gcnew Thread(ThreadMethod);
+			  MyThread->Start();
+		  }
+
+	private: System::Void btn_wf_Click(System::Object^ sender, System::EventArgs^ e) {
+
 	}
 
-}
-private: System::Void btn_er_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (!isListening) {
-		Listening();
-		isListening = true;
+	private: System::Void btn_wf_Click_1(System::Object^ sender, System::EventArgs^ e) {
+		if (!isListening) {
+			Listening();
+			isListening = true;
+		}
+		if (wf) {
+			btn_wf->Text = "Підписатися";
+			tb_wf->Text = "Ви ще не підписалися";
+			char* strin2 = new char[2];
+			strin2 = "w";
+			send(sock, strin2, 1, 0);
+			wf = false;
+		}
+		else {
+			btn_wf->Text = "Відписатися";
+			tb_wf->Text = "";
+			char* strin2 = new char[2];
+			strin2 = "0";
+			send(sock, strin2, 1, 0);
+			wf = true;
+		}
+		closesocket(sock);
 	}
-	if (er) {
-		btn_er->Text = "Subscribe";
-		tb_er->Text = "You dont subscribe yet.";
-		char* strin2 = new char[2];
-		strin2 = "20";
-		send(my_sock, strin2, 2, 0);
-		er = false;
+	private: System::Void btn_sp_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!isListening) {
+			Listening();
+			isListening = true;
+		}
+		if (sp) {
+			btn_sp->Text = "Підписатися";
+			tb_sp->Text = "Ви ще не підписані";
+			char* strin2 = new char[2];
+			strin2 = "a";
+			send(sock, "a", 1, 0);
+			sp = false;
+		}
+		else {
+			btn_sp->Text = "Відписатися";
+			tb_sp->Text = "";
+			char* strin2 = new char[2];
+			strin2 = "0";
+			send(sock, strin2, 1, 0);
+			sp = true;
+		}
+
 	}
-	else {
-		btn_er->Text = "Unsubscribe";
-		tb_er->Text = "";
-		char* strin2 = new char[2];
-		strin2 = "21";
-		send(my_sock, strin2, 2, 0);
-		er = true;
+	private: System::Void btn_er_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!isListening) {
+			Listening();
+			isListening = true;
+		}
+		if (er) {
+			btn_er->Text = "Підписатися";
+			tb_er->Text = "Ви ще не підписані";
+			char* strin2 = new char[2];
+			strin2 = "b";
+			send(sock, "b", 1, 0);
+			er = false;
+		}
+		else {
+			btn_er->Text = "Відписатися";
+			tb_er->Text = "";
+			char* strin2 = new char[2];
+			strin2 = "0";
+			send(sock, strin2, 1, 0);
+			er = true;
+		}
+
+
 	}
-	//	closesocket(my_sock);
 
-}
+	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-
-}
-private: System::Void btn_wf_Click_1(System::Object^ sender, System::EventArgs^ e) {
-}
-};
+	}
+	};
 }
 
