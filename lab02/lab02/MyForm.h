@@ -15,14 +15,15 @@
 
 #define PACKET_BUFF_SIZE 10
 
-std::string ipAddress = "127.0.0.1";  //ipAddress of the server
-int port = 1111;  //listening port # on the server
+//std::string ipAddress = "127.0.0.1";  //ipAddress of the server
+//int port = 1111;  //listening port # on the server
 //Fill in a hint structure
-struct sockaddr_in hint
-{
-	hint.sin_family = AF_INET,
-		hint.sin_port = htons(port),
-};
+//struct sockaddr_in hint
+//{
+//	hint.sin_family = AF_INET,
+//		hint.sin_port = htons(port),
+//};
+
 
 namespace lab02 {
 
@@ -82,6 +83,8 @@ namespace lab02 {
 					sizeof(dest_addr));
 				CheckForIllegalCrossThreadCalls = false;
 				*/
+
+
 		}
 
 
@@ -316,6 +319,8 @@ namespace lab02 {
 				System::Windows::Forms::MessageBox::Show("The error occured in starting winsock");
 			else
 				System::Windows::Forms::MessageBox::Show("WinSock created");
+			int err = WSAGetLastError();
+			System::Windows::Forms::MessageBox::Show(System::Convert::ToString(err));
 			return 0;
 		}
 
@@ -323,6 +328,8 @@ namespace lab02 {
 		if (sock == INVALID_SOCKET) {
 			System::Windows::Forms::MessageBox::Show("The socket is invalid");
 			WSACleanup();
+			int err = WSAGetLastError();
+			System::Windows::Forms::MessageBox::Show(System::Convert::ToString(err));
 		}
 		return 0;
 	}
@@ -333,6 +340,8 @@ namespace lab02 {
 			else
 				System::Windows::Forms::MessageBox::Show("Connection is set");
 			closesocket(sock);
+			int err = WSAGetLastError();
+			System::Windows::Forms::MessageBox::Show(System::Convert::ToString(err));
 			WSACleanup();
 			return 0;
 		}
@@ -340,7 +349,7 @@ namespace lab02 {
 
 
 		//initialize WinSock
-		WSAData* data = new WSAData;
+	/*	WSAData* data = new WSAData;
 		WORD ver = MAKEWORD(2, 2);
 		int wsResult = WSAStartup(ver, data);
 		int ifErrorExist = showError(wsResult);
@@ -349,119 +358,190 @@ namespace lab02 {
 		SOCKET sock = socket(AF_INET6, SOCK_STREAM, 0);
 		int ifSocketIsInvalid = invalidSocket(sock);
 
-		//fill in a hint structure 
+		//fill in a hint structure
 		//filled in the header of the file
 		int res = inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
 		//connect to the server
 		int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
 		int ifConnected = connectionError(connResult, sock);
-
+		*/
 
 		//do-while loop to send and recieve data
 
-	public: void obtainingData() {
+	/*	public: void obtainingData() {
 
-		while (true) {
-			char* buffer = new char[4096];
-			ZeroMemory(buffer, 4096);
-			recv(sock, buffer, 1000, 0);
-			char version = buffer[0];
-			std::string str = buffer;
-			str.erase(0, 1);
-			if (version == 'w') {
-				tb_wf->Text = gcnew String(str.c_str());
+			while (true) {
+				char* buffer = new char[4096];
+				ZeroMemory(buffer, 4096);
+				recv(sock, buffer, 1000, 0);
+				char version = buffer[0];
+				std::string str = buffer;
+				str.erase(0, 1);
+				if (version == 'w') {
+					tb_wf->Text = gcnew String(str.c_str());
+				}
+				else if (version == 'a') {
+					tb_sp->Text = gcnew String(str.c_str());
+				}
+				else if (version == 'b') {
+					tb_er->Text = gcnew String(str.c_str());
+				}
+				memset(buffer, '\0', 1000);
 			}
-			else if (version == 'a') {
-				tb_sp->Text = gcnew String(str.c_str());
-			}
-			else if (version == 'b') {
-				tb_er->Text = gcnew String(str.c_str());
-			}
-			memset(buffer, '\0', 1000);
+			//closesocket(sock);
 		}
-		//closesocket(sock);
-	}
 
-		  void Listening() {
-			  Thread^ MyThread = nullptr;
-			  ThreadStart^ ThreadMethod = gcnew ThreadStart(this, &MyForm::obtainingData);
-			  //ThreadStart^ ThreadMethod = gcnew ThreadStart(this, NULL);
-			  MyThread = gcnew Thread(ThreadMethod);
-			  MyThread->Start();
-		  }
+		void Listening() {
+			 Thread^ MyThread = nullptr;
+			 ThreadStart^ ThreadMethod = gcnew ThreadStart(this, &MyForm::obtainingData);
+			 MyThread = gcnew Thread(ThreadMethod);
+			 MyThread->Start();
+		}
+		void runListening() {
+			if (!isListening) {
+				Listening();
+				isListening = true;
+			}
+		}
+		*/
 
 	private: System::Void btn_wf_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	}
 
 	private: System::Void btn_wf_Click_1(System::Object^ sender, System::EventArgs^ e) {
-		if (!isListening) {
-			Listening();
-			isListening = true;
+		////////--------------------Початок конекту з сокетом - нажимання кнопки-----------------------///////////////
+		//	if (!isListening) {
+		//		Listening();
+		//		isListening = true;
+		//	}
+		/*
+			int err = WSAGetLastError();
+			System::Windows::Forms::MessageBox::Show(System::Convert::ToString(err));
+			if (wf) {
+				btn_wf->Text = "Підписатися";
+				tb_wf->Text = "Ви ще не підписалися";
+				char strin2;
+				strin2 = 'w';
+				send(sock, (const char*)strin2, 1, 0);
+				//
+				runListening();
+				wf = false;
+			}
+			else {
+				btn_wf->Text = "Відписатися";
+				tb_wf->Text = "";
+				char strin2;
+				strin2 = 'u';
+				send(sock, (const char*)strin2, 1, 0);
+				//
+				runListening();
+				wf = true;
+			}
+			//closesocket(sock);
+		*/
+		string ipAddress = "127.0.0.1";			// IP Address of the server
+		int port = 1111;						// Listening port # on the server
+
+		// Initialize WinSock
+		WSAData data;
+		WORD ver = MAKEWORD(2, 2);
+		int wsResult = WSAStartup(ver, &data);
+		if (wsResult != 0)
+		{
+			cerr << "Can't start Winsock, Err #" << wsResult << endl;
+			return;
 		}
-		if (wf) {
-			btn_wf->Text = "Підписатися";
-			tb_wf->Text = "Ви ще не підписалися";
-			char* strin2 = new char[2];
-			strin2 = "w";
-			send(sock, strin2, 1, 0);
-			wf = false;
+
+		// Create socket
+		SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+		if (sock == INVALID_SOCKET)
+		{
+			cerr << "Can't create socket, Err #" << WSAGetLastError() << endl;
+			WSACleanup();
+			return;
 		}
-		else {
-			btn_wf->Text = "Відписатися";
-			tb_wf->Text = "";
-			char* strin2 = new char[2];
-			strin2 = "0";
-			send(sock, strin2, 1, 0);
-			wf = true;
+
+		// Fill in a hint structure
+		sockaddr_in hint;
+		hint.sin_family = AF_INET;
+		hint.sin_port = htons(port);
+		inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
+
+		// Connect to server
+		int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
+		if (connResult == SOCKET_ERROR)
+		{
+			closesocket(sock);
+			WSACleanup();
+			return;
+		}
+
+		// Do-while loop to send and receive data
+
+		if (wf == false) {
+			char buf[4096];
+			const char userInput = 'w';
+			int sendResult = send(sock, (char*)userInput, 1 + 1, 0);
+
+			char* buffer = new char[4096];
+
+			ZeroMemory(buffer, 4096);
+			recv(sock, buffer, 1000, 0);
+
+			char version = buffer[0];
+			std::string str = buffer;
+			str.erase(0, 1);
+			if (version == 'w') {
+				tb_wf->Text = gcnew String(str.c_str());
+			}
+			tb_wf->Text = System::Convert::ToString(buf);
 		}
 		closesocket(sock);
+		WSACleanup();
 	}
 	private: System::Void btn_sp_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!isListening) {
-			Listening();
-			isListening = true;
-		}
-		if (sp) {
-			btn_sp->Text = "Підписатися";
-			tb_sp->Text = "Ви ще не підписані";
-			char* strin2 = new char[2];
-			strin2 = "a";
-			send(sock, "a", 1, 0);
-			sp = false;
-		}
-		else {
-			btn_sp->Text = "Відписатися";
-			tb_sp->Text = "";
-			char* strin2 = new char[2];
-			strin2 = "0";
-			send(sock, strin2, 1, 0);
-			sp = true;
-		}
-
+		/*	if (!isListening) {
+				Listening();
+				isListening = true;
+			}
+			if (sp) {
+				btn_sp->Text = "Підписатися";
+				tb_sp->Text = "Ви ще не підписані";
+				char strin2;
+				strin2 = 'a';
+				send(sock, (const char*)strin2, 1, 0);
+				sp = false;
+			}
+			else {
+				btn_sp->Text = "Відписатися";
+				tb_sp->Text = "";
+				char strin2 = 'u';
+				send(sock, (const char*)strin2, 1, 0);
+				sp = true;
+			}
+			*/
 	}
 	private: System::Void btn_er_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!isListening) {
-			Listening();
-			isListening = true;
-		}
-		if (er) {
-			btn_er->Text = "Підписатися";
-			tb_er->Text = "Ви ще не підписані";
-			char* strin2 = new char[2];
-			strin2 = "b";
-			send(sock, "b", 1, 0);
-			er = false;
-		}
-		else {
-			btn_er->Text = "Відписатися";
-			tb_er->Text = "";
-			char* strin2 = new char[2];
-			strin2 = "0";
-			send(sock, strin2, 1, 0);
-			er = true;
-		}
-
+		/*	if (!isListening) {
+				Listening();
+				isListening = true;
+			}
+			if (er) {
+				btn_er->Text = "Підписатися";
+				tb_er->Text = "Ви ще не підписані";
+				char strin2 = 'b';
+				send(sock, (const char*)strin2, 1, 0);
+				er = false;
+			}
+			else {
+				btn_er->Text = "Відписатися";
+				tb_er->Text = "";
+				char strin2 = 'u';
+				send(sock, (const char*)strin2, 1, 0);
+				er = true;
+			}
+			*/
 
 	}
 
