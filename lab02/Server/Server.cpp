@@ -37,6 +37,10 @@ int main()
 	return 0;
 }
 
+int test_func()
+{
+	printf("This is a test func to commit");
+}
 
 #pragma warning (disable:4996);
 int server(int connect_port)
