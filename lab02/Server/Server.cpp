@@ -42,6 +42,11 @@ int test_func()
 	printf("This is a test func to commit");
 }
 
+int test_func3()
+{
+	printf("Again a test function");
+}
+
 #pragma warning (disable:4996);
 int server(int connect_port)
 {
