@@ -47,6 +47,11 @@ int test_func3()
 	printf("Again a test function");
 }
 
+int test_func4()
+{
+	printf("Another one?");
+}
+
 #pragma warning (disable:4996);
 int server(int connect_port)
 {

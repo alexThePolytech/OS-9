@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\lab02",
-    "\\lab02\\Server"
+    "\\lab02\\lab02",
+    "\\lab02\\Server",
+    "\\lab02\\x64"
   ],
-  "SelectedNode": "\\lab02\\lab02.sln",
+  "SelectedNode": "\\lab02\\Server\\Server.cpp",
   "PreviewInSolutionExplorer": false
 }
